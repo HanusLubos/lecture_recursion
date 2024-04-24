@@ -42,14 +42,38 @@ def binary_search(seq, number):
     return None
 
 
+def recursive_binary_search(sequence, num, lbidx, rbidx):
+
+    middle = (lbidx + rbidx) // 2
+    if sequence[middle] == num:
+        idx = sequence.index(middle)
+        return idx
+
+    elif lbidx == rbidx:
+        return "Hledané číslo není v seznamu"
+
+    elif sequence[middle] < num:
+        lbidx =middle + 1
+        return recursive_binary_search(sequence, num, lbidx, rbidx)
+
+    elif sequence[middle] > num:
+        rbidx = middle - 1
+        return recursive_binary_search(sequence, num, lbidx, rbidx)
+
+
+
+
+
 def main(file_name, number):
     sequence = read_data(file_name=file_name, key="ordered_numbers")
 
     # iterative binary search
-    binary_search(sequence, number=number)
+    # binary_search(sequence, number=number)
 
+    idx = recursive_binary_search(sequence, number,0, len(sequence)-1)
+    print(idx)
 
 if __name__ == "__main__":
     my_file = "sequential.json"
-    my_number = 90
+    my_number = 0
     main(my_file, my_number)
